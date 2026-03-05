@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4th Grade Geography Trivia</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --card: #273449;
+      --accent: #3b82f6;
+      --accent2: #10b981;
+      --danger: #ef4444;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .screen { display: none; width: 100%; max-width: 680px; }
+    .screen.active { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* ── HEADER ── */
+    .header { text-align: center; }
+    .header .globe { font-size: 3.5rem; line-height: 1; }
+    .header h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; margin-top: 0.25rem; }
+    .header p { color: var(--muted); margin-top: 0.4rem; font-size: 1rem; }
+
+    /* ── CATEGORY GRID ── */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .cat-btn {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.15s, transform 0.1s, background 0.15s;
+      color: var(--text);
+    }
+
+    .cat-btn:hover { border-color: var(--accent); background: var(--card); transform: translateY(-2px); }
+    .cat-btn.selected { border-color: var(--accent); background: var(--card); }
+    .cat-btn .cat-icon { font-size: 1.8rem; }
+    .cat-btn .cat-name { font-weight: 700; margin-top: 0.4rem; font-size: 0.95rem; }
+    .cat-btn .cat-desc { color: var(--muted); font-size: 0.78rem; margin-top: 0.2rem; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 0.85rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: 0.3px;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-success { background: var(--accent2); color: #fff; }
+    .btn-full { width: 100%; }
+
+    /* ── PROGRESS ── */
+    .progress-bar-wrap {
+      background: var(--surface);
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ── TIMER ── */
+    .timer-ring {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+    }
+    .timer-ring svg { transform: rotate(-90deg); }
+    .timer-ring circle {
+      fill: none;
+      stroke-width: 5;
+    }
+    .timer-bg { stroke: var(--border); }
+    .timer-fg { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 1s linear, stroke 0.3s; }
+    .timer-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    /* ── QUESTION CARD ── */
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .question-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .question-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    /* ── ANSWER OPTIONS ── */
+    .options { display: flex; flex-direction: column; gap: 0.65rem; }
+
+    .option-btn {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 0.97rem;
+      transition: border-color 0.12s, background 0.12s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--accent); background: #1e3a5f; }
+    .option-btn:disabled { cursor: default; }
+    .option-btn.correct { border-color: var(--accent2); background: #064e3b; }
+    .option-btn.wrong { border-color: var(--danger); background: #450a0a; }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      transition: background 0.12s;
+    }
+    .option-btn.correct .option-letter { background: var(--accent2); }
+    .option-btn.wrong .option-letter { background: var(--danger); }
+
+    /* ── FEEDBACK ── */
+    .feedback {
+      padding: 0.85rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+    .feedback.show { display: block; }
+    .feedback.correct { background: #064e3b; color: #6ee7b7; border: 1px solid var(--accent2); }
+    .feedback.wrong { background: #450a0a; color: #fca5a5; border: 1px solid var(--danger); }
+
+    /* ── SCORE HUD ── */
+    .score-hud {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .hud-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.6rem 1.2rem;
+      text-align: center;
+      flex: 1;
+    }
+    .hud-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+    .hud-value { font-size: 1.4rem; font-weight: 800; margin-top: 0.1rem; }
+    .hud-value.green { color: var(--accent2); }
+    .hud-value.red { color: var(--danger); }
+    .hud-value.blue { color: var(--accent); }
+
+    /* ── RESULTS ── */
+    .result-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent2) 0% var(--pct, 0%), var(--border) var(--pct, 0%) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      position: relative;
+    }
+    .result-inner {
+      width: 96px;
+      height: 96px;
+      background: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .result-pct { font-size: 1.6rem; font-weight: 900; }
+    .result-sub { font-size: 0.7rem; color: var(--muted); }
+
+    .result-badge {
+      text-align: center;
+      padding: 0.75rem;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .result-badge .badge-icon { font-size: 2.5rem; }
+    .result-badge .badge-title { font-size: 1.3rem; font-weight: 800; margin-top: 0.3rem; }
+    .result-badge .badge-msg { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+
+    .result-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+    }
+
+    .btn-row { display: flex; gap: 0.75rem; }
+    .btn-row .btn { flex: 1; }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 1.5rem; }
+      .category-grid { grid-template-columns: 1fr; }
+      .btn-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 1 — HOME
+═══════════════════════════════════════════ -->
+<div id="home-screen" class="screen active">
+  <div class="header">
+    <div class="globe">🌍</div>
+    <h1>Geography Trivia</h1>
+    <p>4th Grade Edition &mdash; Test your world knowledge!</p>
+  </div>
+
+  <div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Choose a Category</p>
+    <div class="category-grid" id="category-grid">
+      <button class="cat-btn selected" data-cat="all">
+        <div class="cat-icon">🌐</div>
+        <div class="cat-name">All Categories</div>
+        <div class="cat-desc">Mix of every topic</div>
+      </button>
+      <button class="cat-btn" data-cat="usa">
+        <div class="cat-icon">🇺🇸</div>
+        <div class="cat-name">USA: States & Capitals</div>
+        <div class="cat-desc">50 states, capitals, regions</div>
+      </button>
+      <button class="cat-btn" data-cat="world">
+        <div class="cat-icon">🗺️</div>
+        <div class="cat-name">World Geography</div>
+        <div class="cat-desc">Continents, countries, oceans</div>
+      </button>
+      <button class="cat-btn" data-cat="landforms">
+        <div class="cat-icon">⛰️</div>
+        <div class="cat-name">Landforms & Water</div>
+        <div class="cat-desc">Mountains, rivers, deserts</div>
+      </button>
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-full" id="start-btn">Start Quiz &rarr;</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 2 — QUIZ
+═══════════════════════════════════════════ -->
+<div id="quiz-screen" class="screen">
+  <div class="quiz-meta">
+    <span id="q-counter">Question 1 of 15</span>
+    <div class="timer-ring">
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle class="timer-bg" cx="26" cy="26" r="22"/>
+        <circle class="timer-fg" id="timer-arc" cx="26" cy="26" r="22"
+          stroke-dasharray="138.2" stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-text" id="timer-text">15</div>
+    </div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+
+  <div class="score-hud">
+    <div class="hud-box">
+      <div class="hud-label">Score</div>
+      <div class="hud-value blue" id="hud-score">0</div>
+    </div>
+    <div class="hud-box">
+      <div class="hud-label">Correct</div>
+      <div class="hud-value green" id="hud-correct">0</div>
+    </div>
+    <div class="hud-box">
+      <div class="hud-label">Wrong</div>
+      <div class="hud-value red" id="hud-wrong">0</div>
+    </div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-category" id="q-category"></div>
+    <div class="question-text" id="q-text"></div>
+  </div>
+
+  <div class="options" id="options"></div>
+
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 3 — RESULTS
+═══════════════════════════════════════════ -->
+<div id="results-screen" class="screen">
+  <div class="header">
+    <h1>Quiz Complete!</h1>
+  </div>
+
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-pct" id="result-pct">0%</div>
+      <div class="result-sub">correct</div>
+    </div>
+  </div>
+
+  <div class="result-badge" id="result-badge">
+    <div class="badge-icon" id="badge-icon"></div>
+    <div class="badge-title" id="badge-title"></div>
+    <div class="badge-msg" id="badge-msg"></div>
+  </div>
+
+  <div class="result-breakdown">
+    <div class="hud-box">
+      <div class="hud-label">Score</div>
+      <div class="hud-value blue" id="res-score">0</div>
+    </div>
+    <div class="hud-box">
+      <div class="hud-label">Correct</div>
+      <div class="hud-value green" id="res-correct">0</div>
+    </div>
+    <div class="hud-box">
+      <div class="hud-label">Wrong</div>
+      <div class="hud-value red" id="res-wrong">0</div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" id="retry-btn">Play Again</button>
+    <button class="btn btn-success" id="home-btn">Home</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  // ── USA ──────────────────────────────────────────────
+  { cat:"usa", q:"What is the capital of the United States?", a:"Washington, D.C.", opts:["New York City","Washington, D.C.","Philadelphia","Boston"] },
+  { cat:"usa", q:"What is the capital of Texas?", a:"Austin", opts:["Dallas","Houston","San Antonio","Austin"] },
+  { cat:"usa", q:"Which U.S. state is the largest by area?", a:"Alaska", opts:["Texas","California","Montana","Alaska"] },
+  { cat:"usa", q:"What is the capital of California?", a:"Sacramento", opts:["Los Angeles","San Francisco","Sacramento","San Diego"] },
+  { cat:"usa", q:"Which U.S. state is made up entirely of islands?", a:"Hawaii", opts:["Florida","Hawaii","Alaska","Rhode Island"] },
+  { cat:"usa", q:"What is the capital of Florida?", a:"Tallahassee", opts:["Miami","Orlando","Tallahassee","Tampa"] },
+  { cat:"usa", q:"Which river forms the border between the U.S. and Mexico?", a:"Rio Grande", opts:["Colorado River","Mississippi River","Rio Grande","Columbia River"] },
+  { cat:"usa", q:"What is the capital of New York?", a:"Albany", opts:["New York City","Buffalo","Albany","Syracuse"] },
+  { cat:"usa", q:"Which U.S. state is the smallest by area?", a:"Rhode Island", opts:["Delaware","Connecticut","Rhode Island","Hawaii"] },
+  { cat:"usa", q:"The Great Lakes are located on the border of the U.S. and which country?", a:"Canada", opts:["Mexico","Canada","Cuba","Russia"] },
+  { cat:"usa", q:"What mountain range runs along the eastern coast of the United States?", a:"Appalachian Mountains", opts:["Rocky Mountains","Sierra Nevada","Appalachian Mountains","Cascade Mountains"] },
+  { cat:"usa", q:"Which state is known as the 'Sunshine State'?", a:"Florida", opts:["California","Arizona","Texas","Florida"] },
+  { cat:"usa", q:"What is the capital of Colorado?", a:"Denver", opts:["Boulder","Colorado Springs","Denver","Fort Collins"] },
+  { cat:"usa", q:"The Mississippi River empties into which body of water?", a:"Gulf of Mexico", opts:["Atlantic Ocean","Gulf of Mexico","Pacific Ocean","Caribbean Sea"] },
+  { cat:"usa", q:"Which U.S. state shares a border with Canada and Russia?", a:"Alaska", opts:["Washington","Maine","Michigan","Alaska"] },
+
+  // ── WORLD ──────────────────────────────────────────
+  { cat:"world", q:"How many continents are there on Earth?", a:"7", opts:["5","6","7","8"] },
+  { cat:"world", q:"What is the largest continent?", a:"Asia", opts:["Africa","North America","Asia","Europe"] },
+  { cat:"world", q:"What is the smallest continent?", a:"Australia", opts:["Europe","Antarctica","Australia","South America"] },
+  { cat:"world", q:"How many oceans are there on Earth?", a:"5", opts:["3","4","5","6"] },
+  { cat:"world", q:"What is the largest ocean?", a:"Pacific Ocean", opts:["Atlantic Ocean","Indian Ocean","Pacific Ocean","Arctic Ocean"] },
+  { cat:"world", q:"What is the capital of France?", a:"Paris", opts:["London","Madrid","Rome","Paris"] },
+  { cat:"world", q:"Which continent is the country of Brazil on?", a:"South America", opts:["Africa","North America","South America","Europe"] },
+  { cat:"world", q:"What is the capital of Japan?", a:"Tokyo", opts:["Beijing","Seoul","Tokyo","Bangkok"] },
+  { cat:"world", q:"What is the longest river in the world?", a:"Nile River", opts:["Amazon River","Yangtze River","Nile River","Mississippi River"] },
+  { cat:"world", q:"Which country has the most people in the world?", a:"India", opts:["China","United States","India","Russia"] },
+  { cat:"world", q:"On which continent is Egypt located?", a:"Africa", opts:["Asia","Europe","Africa","Middle East"] },
+  { cat:"world", q:"What is the capital of Australia?", a:"Canberra", opts:["Sydney","Melbourne","Brisbane","Canberra"] },
+  { cat:"world", q:"Which ocean lies between North America and Europe?", a:"Atlantic Ocean", opts:["Pacific Ocean","Indian Ocean","Atlantic Ocean","Arctic Ocean"] },
+  { cat:"world", q:"What is the capital of Canada?", a:"Ottawa", opts:["Toronto","Vancouver","Montreal","Ottawa"] },
+  { cat:"world", q:"Which country is the Eiffel Tower located in?", a:"France", opts:["Italy","Spain","Germany","France"] },
+
+  // ── LANDFORMS ──────────────────────────────────────
+  { cat:"landforms", q:"What is the tallest mountain in the world?", a:"Mount Everest", opts:["K2","Mount Kilimanjaro","Mount Everest","Denali"] },
+  { cat:"landforms", q:"What is a large area of flat land called?", a:"Plain", opts:["Valley","Plain","Plateau","Peninsula"] },
+  { cat:"landforms", q:"What do we call land that is completely surrounded by water?", a:"Island", opts:["Peninsula","Cape","Island","Isthmus"] },
+  { cat:"landforms", q:"What is the largest desert in the world?", a:"Sahara Desert", opts:["Arabian Desert","Gobi Desert","Sahara Desert","Australian Outback"] },
+  { cat:"landforms", q:"What is a narrow strip of land connecting two larger areas of land?", a:"Isthmus", opts:["Peninsula","Isthmus","Cape","Strait"] },
+  { cat:"landforms", q:"What is the Amazon Rainforest located on?", a:"South America", opts:["Africa","Central America","South America","Asia"] },
+  { cat:"landforms", q:"What do we call water that is completely surrounded by land?", a:"Lake", opts:["Ocean","Gulf","Lake","Sea"] },
+  { cat:"landforms", q:"The Grand Canyon was carved by which river?", a:"Colorado River", opts:["Mississippi River","Colorado River","Rio Grande","Missouri River"] },
+  { cat:"landforms", q:"What is the term for a area of high, flat land?", a:"Plateau", opts:["Plain","Valley","Plateau","Hill"] },
+  { cat:"landforms", q:"What mountain range is the longest in the world?", a:"Andes", opts:["Himalayas","Rockies","Alps","Andes"] },
+  { cat:"landforms", q:"What do we call a body of water that flows into a larger river?", a:"Tributary", opts:["Delta","Tributary","Estuary","Canal"] },
+  { cat:"landforms", q:"What is the name of the line at 0 degrees latitude that divides Earth into Northern and Southern halves?", a:"Equator", opts:["Prime Meridian","Tropic of Cancer","Equator","Arctic Circle"] },
+  { cat:"landforms", q:"What is the name for the line at 0 degrees longitude?", a:"Prime Meridian", opts:["Equator","International Date Line","Prime Meridian","Tropic of Capricorn"] },
+  { cat:"landforms", q:"What is the deepest lake in the world?", a:"Lake Baikal", opts:["Lake Superior","Caspian Sea","Lake Baikal","Crater Lake"] },
+  { cat:"landforms", q:"A low area of land between hills or mountains is called a what?", a:"Valley", opts:["Canyon","Basin","Valley","Gorge"] },
+];
+
+const LETTERS = ['A','B','C','D'];
+const TIME_PER_Q = 15;
+const QUESTIONS_PER_GAME = 15;
+const POINTS_CORRECT = 10;
+
+let selectedCat = 'all';
+let gameQuestions = [];
+let currentIdx = 0;
+let score = 0;
+let correct = 0;
+let wrong = 0;
+let timerInterval = null;
+let timeLeft = TIME_PER_Q;
+let answered = false;
+
+// ── Screen helpers ──
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ── Category selection ──
+document.getElementById('category-grid').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedCat = btn.dataset.cat;
+});
+
+// ── Start ──
+document.getElementById('start-btn').addEventListener('click', startQuiz);
+document.getElementById('retry-btn').addEventListener('click', startQuiz);
+document.getElementById('home-btn').addEventListener('click', () => showScreen('home-screen'));
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  const pool = selectedCat === 'all'
+    ? QUESTIONS
+    : QUESTIONS.filter(q => q.cat === selectedCat);
+
+  gameQuestions = shuffle(pool).slice(0, Math.min(QUESTIONS_PER_GAME, pool.length));
+  currentIdx = 0;
+  score = 0;
+  correct = 0;
+  wrong = 0;
+  showScreen('quiz-screen');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = gameQuestions[currentIdx];
+  answered = false;
+
+  // meta
+  document.getElementById('q-counter').textContent =
+    `Question ${currentIdx + 1} of ${gameQuestions.length}`;
+  document.getElementById('progress-fill').style.width =
+    `${(currentIdx / gameQuestions.length) * 100}%`;
+
+  // score hud
+  document.getElementById('hud-score').textContent = score;
+  document.getElementById('hud-correct').textContent = correct;
+  document.getElementById('hud-wrong').textContent = wrong;
+
+  // question
+  const catLabels = { usa: '🇺🇸 USA: States & Capitals', world: '🗺️ World Geography', landforms: '⛰️ Landforms & Water' };
+  document.getElementById('q-category').textContent = catLabels[q.cat];
+  document.getElementById('q-text').textContent = q.q;
+
+  // options
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+  const shuffledOpts = shuffle(q.opts);
+  shuffledOpts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="option-letter">${LETTERS[i]}</span>${opt}`;
+    btn.addEventListener('click', () => handleAnswer(btn, opt, q.a, q));
+    optContainer.appendChild(btn);
+  });
+
+  // feedback
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  fb.textContent = '';
+
+  // timer
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timeLeft = TIME_PER_Q;
+  updateTimerUI();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerUI();
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      if (!answered) timeUp();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const circumference = 138.2;
+  const offset = circumference * (1 - timeLeft / TIME_PER_Q);
+  const arc = document.getElementById('timer-arc');
+  arc.style.strokeDashoffset = offset;
+  arc.style.stroke = timeLeft <= 5 ? '#ef4444' : timeLeft <= 8 ? '#f59e0b' : '#3b82f6';
+  document.getElementById('timer-text').textContent = timeLeft;
+}
+
+function timeUp() {
+  answered = true;
+  const q = gameQuestions[currentIdx];
+  wrong++;
+  // highlight correct
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent.includes(q.a)) btn.classList.add('correct');
+  });
+  showFeedback(false, `Time's up! The answer was: ${q.a}`);
+  scheduleNext();
+}
+
+function handleAnswer(btn, chosen, correct_ans, q) {
+  if (answered) return;
+  answered = true;
+  clearInterval(timerInterval);
+
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.disabled = true;
+    if (b.textContent.includes(correct_ans)) b.classList.add('correct');
+  });
+
+  if (chosen === correct_ans) {
+    btn.classList.add('correct');
+    score += POINTS_CORRECT + Math.max(0, timeLeft);
+    correct++;
+    showFeedback(true, 'Correct! Great job!');
+  } else {
+    btn.classList.add('wrong');
+    wrong++;
+    showFeedback(false, `Not quite. The correct answer is: ${correct_ans}`);
+  }
+
+  // update hud
+  document.getElementById('hud-score').textContent = score;
+  document.getElementById('hud-correct').textContent = correct;
+  document.getElementById('hud-wrong').textContent = wrong;
+
+  scheduleNext();
+}
+
+function showFeedback(isCorrect, msg) {
+  const fb = document.getElementById('feedback');
+  fb.textContent = msg;
+  fb.className = `feedback show ${isCorrect ? 'correct' : 'wrong'}`;
+}
+
+function scheduleNext() {
+  setTimeout(() => {
+    currentIdx++;
+    if (currentIdx >= gameQuestions.length) {
+      showResults();
+    } else {
+      renderQuestion();
+    }
+  }, 1800);
+}
+
+function showResults() {
+  const total = gameQuestions.length;
+  const pct = Math.round((correct / total) * 100);
+
+  document.getElementById('result-circle').style.setProperty('--pct', `${pct}%`);
+  document.getElementById('result-pct').textContent = `${pct}%`;
+  document.getElementById('res-score').textContent = score;
+  document.getElementById('res-correct').textContent = correct;
+  document.getElementById('res-wrong').textContent = wrong;
+
+  const badges = [
+    { min:90, icon:'🏆', title:'Geography Champion!', msg:'Outstanding! You really know your geography!' },
+    { min:75, icon:'⭐', title:'Star Explorer!', msg:'Great work! You have excellent geography skills.' },
+    { min:60, icon:'🗺️', title:'Skilled Navigator!', msg:'Good job! Keep studying and you\'ll be a champ.' },
+    { min:40, icon:'🌱', title:'Growing Geographer!', msg:'Nice try! Review the map and try again.' },
+    { min:0,  icon:'📚', title:'Keep Exploring!', msg:'Geography takes practice — keep at it!' },
+  ];
+  const badge = badges.find(b => pct >= b.min);
+  document.getElementById('badge-icon').textContent = badge.icon;
+  document.getElementById('badge-title').textContent = badge.title;
+  document.getElementById('badge-msg').textContent = badge.msg;
+
+  showScreen('results-screen');
+}
+</script>
+</body>
+</html>
