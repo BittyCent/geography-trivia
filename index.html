@@ -305,6 +305,11 @@
         <div class="cat-name">Landforms & Water</div>
         <div class="cat-desc">Mountains, rivers, deserts</div>
       </button>
+      <button class="cat-btn" data-cat="geobee">
+        <div class="cat-icon">🐝</div>
+        <div class="cat-name">Irvington Geography Bee</div>
+        <div class="cat-desc">GeoBee challenge questions</div>
+      </button>
     </div>
   </div>
 
@@ -416,6 +421,16 @@ const QUESTIONS = [
   { cat:"usa", q:"What is the capital of Colorado?", a:"Denver", opts:["Boulder","Colorado Springs","Denver","Fort Collins"] },
   { cat:"usa", q:"The Mississippi River empties into which body of water?", a:"Gulf of Mexico", opts:["Atlantic Ocean","Gulf of Mexico","Pacific Ocean","Caribbean Sea"] },
   { cat:"usa", q:"Which U.S. state shares a border with Canada and Russia?", a:"Alaska", opts:["Washington","Maine","Michigan","Alaska"] },
+  { cat:"usa", q:"What is the capital of Georgia?", a:"Atlanta", opts:["Savannah","Augusta","Macon","Atlanta"] },
+  { cat:"usa", q:"What is the capital of Illinois?", a:"Springfield", opts:["Chicago","Springfield","Rockford","Peoria"] },
+  { cat:"usa", q:"Which U.S. state is nicknamed the 'Lone Star State'?", a:"Texas", opts:["Nevada","New Mexico","Oklahoma","Texas"] },
+  { cat:"usa", q:"What is the capital of Oregon?", a:"Salem", opts:["Portland","Eugene","Salem","Bend"] },
+  { cat:"usa", q:"What is the capital of Michigan?", a:"Lansing", opts:["Detroit","Grand Rapids","Ann Arbor","Lansing"] },
+  { cat:"usa", q:"What is the capital of Ohio?", a:"Columbus", opts:["Cleveland","Cincinnati","Toledo","Columbus"] },
+  { cat:"usa", q:"What is the capital of Arizona?", a:"Phoenix", opts:["Tucson","Scottsdale","Flagstaff","Phoenix"] },
+  { cat:"usa", q:"Which U.S. state has the longest coastline?", a:"Alaska", opts:["Florida","California","Maine","Alaska"] },
+  { cat:"usa", q:"What is the capital of Pennsylvania?", a:"Harrisburg", opts:["Philadelphia","Pittsburgh","Allentown","Harrisburg"] },
+  { cat:"usa", q:"Which Great Lake is the largest by surface area?", a:"Lake Superior", opts:["Lake Michigan","Lake Erie","Lake Huron","Lake Superior"] },
 
   // ── WORLD ──────────────────────────────────────────
   { cat:"world", q:"How many continents are there on Earth?", a:"7", opts:["5","6","7","8"] },
@@ -433,6 +448,16 @@ const QUESTIONS = [
   { cat:"world", q:"Which ocean lies between North America and Europe?", a:"Atlantic Ocean", opts:["Pacific Ocean","Indian Ocean","Atlantic Ocean","Arctic Ocean"] },
   { cat:"world", q:"What is the capital of Canada?", a:"Ottawa", opts:["Toronto","Vancouver","Montreal","Ottawa"] },
   { cat:"world", q:"Which country is the Eiffel Tower located in?", a:"France", opts:["Italy","Spain","Germany","France"] },
+  { cat:"world", q:"What is the capital of China?", a:"Beijing", opts:["Shanghai","Hong Kong","Chengdu","Beijing"] },
+  { cat:"world", q:"What is the capital of Germany?", a:"Berlin", opts:["Munich","Hamburg","Frankfurt","Berlin"] },
+  { cat:"world", q:"What is the capital of Mexico?", a:"Mexico City", opts:["Guadalajara","Monterrey","Cancún","Mexico City"] },
+  { cat:"world", q:"Which country is the largest in the world by area?", a:"Russia", opts:["Canada","China","United States","Russia"] },
+  { cat:"world", q:"What is the capital of South Korea?", a:"Seoul", opts:["Busan","Incheon","Pyongyang","Seoul"] },
+  { cat:"world", q:"What is the capital of Egypt?", a:"Cairo", opts:["Alexandria","Luxor","Giza","Cairo"] },
+  { cat:"world", q:"What is the capital of Argentina?", a:"Buenos Aires", opts:["Santiago","Lima","Montevideo","Buenos Aires"] },
+  { cat:"world", q:"What is the capital of Saudi Arabia?", a:"Riyadh", opts:["Mecca","Medina","Jeddah","Riyadh"] },
+  { cat:"world", q:"What is the capital of Italy?", a:"Rome", opts:["Milan","Venice","Florence","Rome"] },
+  { cat:"world", q:"What is the capital of Spain?", a:"Madrid", opts:["Barcelona","Seville","Valencia","Madrid"] },
 
   // ── LANDFORMS ──────────────────────────────────────
   { cat:"landforms", q:"What is the tallest mountain in the world?", a:"Mount Everest", opts:["K2","Mount Kilimanjaro","Mount Everest","Denali"] },
@@ -450,6 +475,152 @@ const QUESTIONS = [
   { cat:"landforms", q:"What is the name for the line at 0 degrees longitude?", a:"Prime Meridian", opts:["Equator","International Date Line","Prime Meridian","Tropic of Capricorn"] },
   { cat:"landforms", q:"What is the deepest lake in the world?", a:"Lake Baikal", opts:["Lake Superior","Caspian Sea","Lake Baikal","Crater Lake"] },
   { cat:"landforms", q:"A low area of land between hills or mountains is called a what?", a:"Valley", opts:["Canyon","Basin","Valley","Gorge"] },
+  { cat:"landforms", q:"What is the funnel-shaped landform where a river meets the sea called?", a:"Delta", opts:["Canyon","Delta","Estuary","Fjord"] },
+  { cat:"landforms", q:"What is the highest mountain in Africa?", a:"Mount Kilimanjaro", opts:["Mount Kenya","Mount Elgon","Atlas Mountains","Mount Kilimanjaro"] },
+  { cat:"landforms", q:"What is the largest lake in North America?", a:"Lake Superior", opts:["Lake Michigan","Lake Huron","Great Salt Lake","Lake Superior"] },
+  { cat:"landforms", q:"What do you call land that is surrounded by water on three sides?", a:"Peninsula", opts:["Isthmus","Cape","Island","Peninsula"] },
+  { cat:"landforms", q:"What is the name for seasonal winds that bring heavy rains to South Asia?", a:"Monsoon", opts:["Trade Wind","Typhoon","Monsoon","Jet Stream"] },
+  { cat:"landforms", q:"What is a slow-moving mass of ice called?", a:"Glacier", opts:["Iceberg","Tundra","Glacier","Ice Cap"] },
+  { cat:"landforms", q:"What is the zone of volcanoes and earthquakes surrounding the Pacific Ocean called?", a:"Ring of Fire", opts:["Fault Belt","Pacific Arc","Tectonic Zone","Ring of Fire"] },
+  { cat:"landforms", q:"What do we call the natural process by which rock and soil are worn down by wind and water?", a:"Erosion", opts:["Deposition","Erosion","Weathering","Sedimentation"] },
+  { cat:"landforms", q:"What is a crack in Earth's crust along which rock can move called?", a:"Fault", opts:["Trench","Rift","Fault","Crevice"] },
+  { cat:"landforms", q:"What is a narrow inlet of the sea between steep cliffs, formed by glaciers, called?", a:"Fjord", opts:["Canyon","Delta","Bay","Fjord"] },
+
+  // ── IRVINGTON GEOGRAPHY BEE ────────────────────────
+  { cat:"geobee", q:"What is the world's tallest waterfall?", a:"Angel Falls", opts:["Niagara Falls","Angel Falls","Victoria Falls","Iguazu Falls"] },
+  { cat:"geobee", q:"What is the capital of Brazil?", a:"Brasília", opts:["São Paulo","Rio de Janeiro","Brasília","Salvador"] },
+  { cat:"geobee", q:"Which continent has the most countries?", a:"Africa", opts:["Asia","Europe","Africa","South America"] },
+  { cat:"geobee", q:"The country of Russia spans which two continents?", a:"Europe and Asia", opts:["Europe and Asia","Asia and North America","Europe and North America","Asia and Africa"] },
+  { cat:"geobee", q:"Which U.S. National Park is famous for the geyser 'Old Faithful'?", a:"Yellowstone", opts:["Yosemite","Grand Canyon","Yellowstone","Zion"] },
+  { cat:"geobee", q:"What is the imaginary line at 23.5 degrees north latitude called?", a:"Tropic of Cancer", opts:["Equator","Arctic Circle","Tropic of Cancer","Tropic of Capricorn"] },
+  { cat:"geobee", q:"What is the capital of India?", a:"New Delhi", opts:["Mumbai","Kolkata","Chennai","New Delhi"] },
+  { cat:"geobee", q:"Which is the smallest ocean on Earth?", a:"Arctic Ocean", opts:["Indian Ocean","Southern Ocean","Atlantic Ocean","Arctic Ocean"] },
+  { cat:"geobee", q:"The Amazon River flows primarily through which country?", a:"Brazil", opts:["Peru","Colombia","Venezuela","Brazil"] },
+  { cat:"geobee", q:"What is the largest U.S. National Park by area?", a:"Wrangell-St. Elias", opts:["Yellowstone","Denali","Everglades","Wrangell-St. Elias"] },
+  { cat:"geobee", q:"What is the capital of Kenya?", a:"Nairobi", opts:["Lagos","Cairo","Accra","Nairobi"] },
+  { cat:"geobee", q:"What is a narrow body of water connecting two larger bodies of water called?", a:"Strait", opts:["Peninsula","Delta","Archipelago","Strait"] },
+  { cat:"geobee", q:"The Great Barrier Reef is located off the coast of which country?", a:"Australia", opts:["New Zealand","Indonesia","Philippines","Australia"] },
+  { cat:"geobee", q:"What term describes a group of islands?", a:"Archipelago", opts:["Peninsula","Atoll","Archipelago","Lagoon"] },
+  { cat:"geobee", q:"Which African country has the largest population?", a:"Nigeria", opts:["Egypt","Ethiopia","South Africa","Nigeria"] },
+  { cat:"geobee", q:"What is the smallest country in the world by area?", a:"Vatican City", opts:["Monaco","San Marino","Liechtenstein","Vatican City"] },
+  { cat:"geobee", q:"What is the capital of Turkey?", a:"Ankara", opts:["Istanbul","Izmir","Bursa","Ankara"] },
+  { cat:"geobee", q:"Which country is home to the Serengeti National Park?", a:"Tanzania", opts:["Kenya","South Africa","Zimbabwe","Tanzania"] },
+  { cat:"geobee", q:"What is the capital of Peru?", a:"Lima", opts:["Cusco","Bogotá","Quito","Lima"] },
+  { cat:"geobee", q:"Which mountain range is traditionally considered the boundary between Europe and Asia?", a:"Ural Mountains", opts:["Caucasus Mountains","Alps","Carpathians","Ural Mountains"] },
+  { cat:"geobee", q:"Which country has the most ancient pyramids?", a:"Sudan", opts:["Egypt","Mexico","Iraq","Sudan"] },
+  { cat:"geobee", q:"What is the capital of Nigeria?", a:"Abuja", opts:["Lagos","Kano","Ibadan","Abuja"] },
+  { cat:"geobee", q:"Which continent has no countries and no permanent human residents?", a:"Antarctica", opts:["Arctic","Greenland","Antarctica","Oceania"] },
+  { cat:"geobee", q:"What is the world's largest island?", a:"Greenland", opts:["New Guinea","Borneo","Madagascar","Greenland"] },
+  { cat:"geobee", q:"What is the capital of Pakistan?", a:"Islamabad", opts:["Karachi","Lahore","Peshawar","Islamabad"] },
+
+  // ── GEOBEE EXTENDED POOL ───────────────────────────
+
+  // World Capitals
+  { cat:"geobee", q:"What is the capital of Russia?", a:"Moscow", opts:["St. Petersburg","Vladivostok","Novosibirsk","Moscow"] },
+  { cat:"geobee", q:"What is the capital of the United Kingdom?", a:"London", opts:["Manchester","Edinburgh","Birmingham","London"] },
+  { cat:"geobee", q:"What is the capital of Canada?", a:"Ottawa", opts:["Toronto","Vancouver","Montreal","Ottawa"] },
+  { cat:"geobee", q:"What is the capital of Japan?", a:"Tokyo", opts:["Osaka","Kyoto","Hiroshima","Tokyo"] },
+  { cat:"geobee", q:"What is the capital of Australia?", a:"Canberra", opts:["Sydney","Melbourne","Brisbane","Canberra"] },
+  { cat:"geobee", q:"What is the capital of France?", a:"Paris", opts:["Lyon","Marseille","Nice","Paris"] },
+  { cat:"geobee", q:"What is the capital of China?", a:"Beijing", opts:["Shanghai","Guangzhou","Chengdu","Beijing"] },
+  { cat:"geobee", q:"What is the capital of South Africa?", a:"Pretoria", opts:["Cape Town","Johannesburg","Durban","Pretoria"] },
+  { cat:"geobee", q:"What is the capital of Morocco?", a:"Rabat", opts:["Casablanca","Marrakech","Fez","Rabat"] },
+  { cat:"geobee", q:"What is the capital of Ethiopia?", a:"Addis Ababa", opts:["Nairobi","Kampala","Khartoum","Addis Ababa"] },
+  { cat:"geobee", q:"What is the capital of Ghana?", a:"Accra", opts:["Lagos","Dakar","Abidjan","Accra"] },
+  { cat:"geobee", q:"What is the capital of Colombia?", a:"Bogotá", opts:["Medellín","Cali","Cartagena","Bogotá"] },
+  { cat:"geobee", q:"What is the capital of Venezuela?", a:"Caracas", opts:["Bogotá","Lima","Quito","Caracas"] },
+  { cat:"geobee", q:"What is the capital of Chile?", a:"Santiago", opts:["Lima","Buenos Aires","La Paz","Santiago"] },
+  { cat:"geobee", q:"What is the capital of Portugal?", a:"Lisbon", opts:["Porto","Seville","Madrid","Lisbon"] },
+  { cat:"geobee", q:"What is the capital of Greece?", a:"Athens", opts:["Thessaloniki","Sparta","Corinth","Athens"] },
+  { cat:"geobee", q:"What is the capital of Poland?", a:"Warsaw", opts:["Krakow","Gdansk","Lodz","Warsaw"] },
+  { cat:"geobee", q:"What is the capital of Sweden?", a:"Stockholm", opts:["Oslo","Copenhagen","Helsinki","Stockholm"] },
+  { cat:"geobee", q:"What is the capital of Norway?", a:"Oslo", opts:["Bergen","Stockholm","Copenhagen","Oslo"] },
+  { cat:"geobee", q:"What is the capital of Switzerland?", a:"Bern", opts:["Zurich","Geneva","Basel","Bern"] },
+  { cat:"geobee", q:"What is the capital of Austria?", a:"Vienna", opts:["Salzburg","Graz","Innsbruck","Vienna"] },
+  { cat:"geobee", q:"What is the capital of Hungary?", a:"Budapest", opts:["Prague","Bratislava","Bucharest","Budapest"] },
+  { cat:"geobee", q:"What is the capital of the Netherlands?", a:"Amsterdam", opts:["Rotterdam","The Hague","Utrecht","Amsterdam"] },
+  { cat:"geobee", q:"What is the capital of Ukraine?", a:"Kyiv", opts:["Kharkiv","Lviv","Odesa","Kyiv"] },
+  { cat:"geobee", q:"What is the capital of Iran?", a:"Tehran", opts:["Baghdad","Riyadh","Kabul","Tehran"] },
+  { cat:"geobee", q:"What is the capital of Thailand?", a:"Bangkok", opts:["Hanoi","Kuala Lumpur","Jakarta","Bangkok"] },
+  { cat:"geobee", q:"What is the capital of Vietnam?", a:"Hanoi", opts:["Ho Chi Minh City","Bangkok","Phnom Penh","Hanoi"] },
+  { cat:"geobee", q:"What is the capital of the Philippines?", a:"Manila", opts:["Cebu","Davao","Jakarta","Manila"] },
+  { cat:"geobee", q:"What is the capital of Malaysia?", a:"Kuala Lumpur", opts:["Singapore","Jakarta","Bangkok","Kuala Lumpur"] },
+  { cat:"geobee", q:"What is the capital of New Zealand?", a:"Wellington", opts:["Auckland","Christchurch","Dunedin","Wellington"] },
+  { cat:"geobee", q:"What is the capital of Cuba?", a:"Havana", opts:["Santiago","Trinidad","Varadero","Havana"] },
+  { cat:"geobee", q:"What is the capital of Jamaica?", a:"Kingston", opts:["Nassau","Bridgetown","Port-au-Prince","Kingston"] },
+  { cat:"geobee", q:"What is the capital of Egypt?", a:"Cairo", opts:["Alexandria","Luxor","Aswan","Cairo"] },
+  { cat:"geobee", q:"What is the capital of Argentina?", a:"Buenos Aires", opts:["Santiago","Lima","Montevideo","Buenos Aires"] },
+  { cat:"geobee", q:"What is the capital of Saudi Arabia?", a:"Riyadh", opts:["Mecca","Medina","Jeddah","Riyadh"] },
+  { cat:"geobee", q:"What is the capital of Iraq?", a:"Baghdad", opts:["Tehran","Amman","Damascus","Baghdad"] },
+  { cat:"geobee", q:"What is the capital of Afghanistan?", a:"Kabul", opts:["Islamabad","Tehran","Tashkent","Kabul"] },
+  { cat:"geobee", q:"What is the capital of Indonesia?", a:"Jakarta", opts:["Bali","Surabaya","Bandung","Jakarta"] },
+  { cat:"geobee", q:"What is the capital of Mexico?", a:"Mexico City", opts:["Guadalajara","Monterrey","Cancún","Mexico City"] },
+
+  // Rivers & Water Bodies
+  { cat:"geobee", q:"What is the longest river in South America?", a:"Amazon River", opts:["Paraná River","Orinoco River","São Francisco River","Amazon River"] },
+  { cat:"geobee", q:"What is the longest river in Europe?", a:"Volga River", opts:["Rhine River","Danube River","Thames River","Volga River"] },
+  { cat:"geobee", q:"Which river runs through the Grand Canyon?", a:"Colorado River", opts:["Rio Grande","Mississippi River","Missouri River","Colorado River"] },
+  { cat:"geobee", q:"Which two countries share Niagara Falls?", a:"USA and Canada", opts:["USA and Mexico","USA and Canada","Canada and UK","USA and UK"] },
+  { cat:"geobee", q:"The Panama Canal connects which two oceans?", a:"Atlantic and Pacific", opts:["Atlantic and Indian","Pacific and Arctic","Atlantic and Pacific","Indian and Pacific"] },
+  { cat:"geobee", q:"What is the world's largest lake by surface area?", a:"Caspian Sea", opts:["Lake Superior","Lake Victoria","Lake Baikal","Caspian Sea"] },
+  { cat:"geobee", q:"What is the highest navigable lake in the world?", a:"Lake Titicaca", opts:["Lake Baikal","Lake Victoria","Lake Superior","Lake Titicaca"] },
+  { cat:"geobee", q:"What is the largest lake in Africa?", a:"Lake Victoria", opts:["Lake Tanganyika","Lake Malawi","Lake Chad","Lake Victoria"] },
+  { cat:"geobee", q:"Which ocean is the deepest?", a:"Pacific Ocean", opts:["Atlantic Ocean","Indian Ocean","Arctic Ocean","Pacific Ocean"] },
+  { cat:"geobee", q:"What is the deepest known point in the ocean called?", a:"Mariana Trench", opts:["Puerto Rico Trench","Java Trench","Tonga Trench","Mariana Trench"] },
+  { cat:"geobee", q:"What body of water lies between Europe and Africa?", a:"Mediterranean Sea", opts:["Red Sea","Black Sea","North Sea","Mediterranean Sea"] },
+  { cat:"geobee", q:"What sea lies between Saudi Arabia and Africa?", a:"Red Sea", opts:["Arabian Sea","Caspian Sea","Mediterranean Sea","Red Sea"] },
+
+  // Mountains & Physical Features
+  { cat:"geobee", q:"What is the highest mountain in North America?", a:"Denali", opts:["Mount Logan","Mount Whitney","Mount Rainier","Denali"] },
+  { cat:"geobee", q:"What is the highest mountain in Europe?", a:"Mount Elbrus", opts:["Mont Blanc","Matterhorn","Monte Rosa","Mount Elbrus"] },
+  { cat:"geobee", q:"What is the highest mountain in South America?", a:"Aconcagua", opts:["Chimborazo","Cotopaxi","Huascarán","Aconcagua"] },
+  { cat:"geobee", q:"What is the largest desert in Asia?", a:"Gobi Desert", opts:["Arabian Desert","Taklamakan Desert","Thar Desert","Gobi Desert"] },
+  { cat:"geobee", q:"What mountain range contains Mount Everest?", a:"Himalayas", opts:["Karakoram","Hindu Kush","Ural Mountains","Himalayas"] },
+  { cat:"geobee", q:"What is the name of the deepest lake in the United States?", a:"Crater Lake", opts:["Lake Tahoe","Lake Superior","Lake Michigan","Crater Lake"] },
+  { cat:"geobee", q:"In which US state is Crater Lake located?", a:"Oregon", opts:["Washington","California","Idaho","Oregon"] },
+
+  // Countries & Continents
+  { cat:"geobee", q:"Which country is both a continent and a country?", a:"Australia", opts:["Greenland","Antarctica","New Zealand","Australia"] },
+  { cat:"geobee", q:"How many countries are in South America?", a:"12", opts:["10","11","12","13"] },
+  { cat:"geobee", q:"Which country is home to the most volcanoes in the world?", a:"Indonesia", opts:["Japan","Philippines","USA","Indonesia"] },
+  { cat:"geobee", q:"Which country has the longest coastline in the world?", a:"Canada", opts:["Russia","Australia","Norway","Canada"] },
+  { cat:"geobee", q:"Which country is home to Machu Picchu?", a:"Peru", opts:["Bolivia","Colombia","Ecuador","Peru"] },
+  { cat:"geobee", q:"Which country is home to the Great Wall?", a:"China", opts:["Japan","Mongolia","Korea","China"] },
+  { cat:"geobee", q:"Which country is home to the Taj Mahal?", a:"India", opts:["Pakistan","Bangladesh","Nepal","India"] },
+  { cat:"geobee", q:"Which country is home to Angkor Wat?", a:"Cambodia", opts:["Thailand","Vietnam","Myanmar","Cambodia"] },
+  { cat:"geobee", q:"The Galapagos Islands belong to which country?", a:"Ecuador", opts:["Peru","Colombia","Chile","Ecuador"] },
+  { cat:"geobee", q:"Which country contains the most of the Amazon rainforest?", a:"Brazil", opts:["Peru","Colombia","Venezuela","Brazil"] },
+  { cat:"geobee", q:"Which country is separated from the UK by the English Channel?", a:"France", opts:["Belgium","Netherlands","Ireland","France"] },
+  { cat:"geobee", q:"Which is the largest country in South America by area?", a:"Brazil", opts:["Argentina","Peru","Colombia","Brazil"] },
+  { cat:"geobee", q:"Which is the largest country in Africa by area?", a:"Algeria", opts:["Sudan","Democratic Republic of Congo","Libya","Algeria"] },
+  { cat:"geobee", q:"Norway is famous for its long, narrow inlets of water called what?", a:"Fjords", opts:["Bays","Lagoons","Straits","Fjords"] },
+  { cat:"geobee", q:"Which country do the Canary Islands belong to?", a:"Spain", opts:["Portugal","Morocco","France","Spain"] },
+
+  // US National Parks & Geography
+  { cat:"geobee", q:"In which US state is Yellowstone National Park located?", a:"Wyoming", opts:["Montana","Idaho","Colorado","Wyoming"] },
+  { cat:"geobee", q:"In which US state is Yosemite National Park located?", a:"California", opts:["Oregon","Nevada","Colorado","California"] },
+  { cat:"geobee", q:"Which US National Park is known for giant sequoia trees?", a:"Sequoia National Park", opts:["Redwood National Park","Olympic National Park","Muir Woods","Sequoia National Park"] },
+  { cat:"geobee", q:"In which US state is Acadia National Park located?", a:"Maine", opts:["New Hampshire","Vermont","Massachusetts","Maine"] },
+  { cat:"geobee", q:"In which US state is Joshua Tree National Park located?", a:"California", opts:["Arizona","Nevada","New Mexico","California"] },
+  { cat:"geobee", q:"In which US state is Glacier National Park located?", a:"Montana", opts:["Idaho","Wyoming","Colorado","Montana"] },
+  { cat:"geobee", q:"The Everglades National Park is located in which US state?", a:"Florida", opts:["Georgia","Louisiana","South Carolina","Florida"] },
+  { cat:"geobee", q:"Which US National Park preserves the world's largest collection of geysers?", a:"Yellowstone", opts:["Grand Teton","Crater Lake","Hot Springs","Yellowstone"] },
+
+  // Geographic Concepts & Fun Facts
+  { cat:"geobee", q:"What is the term for the point on Earth's surface directly above an earthquake's origin?", a:"Epicenter", opts:["Fault","Epicenter","Seismic Zone","Focus"] },
+  { cat:"geobee", q:"What is a tropical storm in the Atlantic Ocean called?", a:"Hurricane", opts:["Typhoon","Cyclone","Monsoon","Hurricane"] },
+  { cat:"geobee", q:"What is a tropical storm in the Pacific Ocean called?", a:"Typhoon", opts:["Hurricane","Cyclone","Tornado","Typhoon"] },
+  { cat:"geobee", q:"What imaginary line divides Earth into Eastern and Western hemispheres?", a:"Prime Meridian", opts:["Equator","International Date Line","Tropic of Cancer","Prime Meridian"] },
+  { cat:"geobee", q:"What is the term for a fertile green area in the middle of a desert?", a:"Oasis", opts:["Savanna","Steppe","Oasis","Wetland"] },
+  { cat:"geobee", q:"What is a wide, flat-topped hill with steep sides called?", a:"Mesa", opts:["Butte","Plateau","Canyon","Mesa"] },
+  { cat:"geobee", q:"What is a large, treeless, frozen plain in the Arctic called?", a:"Tundra", opts:["Steppe","Taiga","Prairie","Tundra"] },
+  { cat:"geobee", q:"What is the name of the large crack in Earth's crust running through East Africa?", a:"Great Rift Valley", opts:["Congo Basin","Nile Valley","Sahel","Great Rift Valley"] },
+  { cat:"geobee", q:"What is the line called where the land meets the sea?", a:"Coastline", opts:["Shoreline","Coastline","Boundary","Tideline"] },
+  { cat:"geobee", q:"What type of map uses lines to show areas of equal elevation?", a:"Topographic map", opts:["Political map","Climate map","Topographic map","Physical map"] },
+  { cat:"geobee", q:"What is the term for the daily rise and fall of sea levels caused by the Moon's gravity?", a:"Tide", opts:["Current","Wave","Surge","Tide"] },
+  { cat:"geobee", q:"What do we call the imaginary line at 90 degrees north latitude?", a:"North Pole", opts:["Arctic Circle","Tropic of Cancer","Prime Meridian","North Pole"] },
+  { cat:"geobee", q:"What is the circular ocean current in the North Atlantic called?", a:"Gulf Stream", opts:["North Atlantic Current","Gulf Stream","Trade Wind","Jet Stream"] },
+  { cat:"geobee", q:"What is a flat-topped, underwater mountain called?", a:"Seamount", opts:["Trench","Seamount","Ridge","Guyot"] },
 ];
 
 const LETTERS = ['A','B','C','D'];
@@ -526,7 +697,7 @@ function renderQuestion() {
   document.getElementById('hud-wrong').textContent = wrong;
 
   // question
-  const catLabels = { usa: '🇺🇸 USA: States & Capitals', world: '🗺️ World Geography', landforms: '⛰️ Landforms & Water' };
+  const catLabels = { usa: '🇺🇸 USA: States & Capitals', world: '🗺️ World Geography', landforms: '⛰️ Landforms & Water', geobee: '🐝 Irvington Geography Bee' };
   document.getElementById('q-category').textContent = catLabels[q.cat];
   document.getElementById('q-text').textContent = q.q;
 
